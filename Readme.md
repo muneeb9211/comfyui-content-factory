@@ -1,4 +1,4 @@
-# Phase 4 Content Factory
+# ComfyUI Content Factory
 
 **Autonomous AI content pipeline powered by ComfyUI — generates consistent characters, pose-controlled scenes, and production-ready video assets at scale.**
 
@@ -22,7 +22,7 @@ Doing this manually in ComfyUI is slow, error-prone, and impossible to scale.
 
 ## The Solution
 
-Phase 4 Factory automates the entire pipeline:
+ComfyUI Content Factory automates the entire pipeline:
 
 ```
 Seed Template → Unlimited Variants → Character (ControlNet + LoRA + IPAdapter)
@@ -37,7 +37,7 @@ One command. Hundreds of consistent, production-ready content packages.
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                   PHASE 4 FACTORY                       │
+│               COMFYUI CONTENT FACTORY                    │
 ├─────────────┬──────────────┬────────────────────────────┤
 │  Template   │  Character   │  Scene Sequencer           │
 │  Engine     │  System      │  (ControlNet Poses)        │
@@ -142,9 +142,9 @@ python main_phase.py
 ### Single Character Test
 
 ```python
-from main_phase import Phase4ContentFactory
+from main_phase import ContentFactory
 
-factory = Phase4ContentFactory()
+factory = ContentFactory()
 
 template = {
     "topic": "fitness",
@@ -160,7 +160,7 @@ result = factory.execute_complete_template_debug(template, "TEST001")
 ### Full Batch Production
 
 ```python
-factory = Phase4ContentFactory()
+factory = ContentFactory()
 factory.run_factory(batch_size=10, topics=["fitness", "cooking", "tech"])
 ```
 
@@ -234,7 +234,7 @@ Every run is logged with 6 required fields:
 ## Project Structure
 
 ```
-phase4_factory/
+comfyui-content-factory/
 ├── main_phase.py           # Core factory engine
 ├── comfy_client.py         # ComfyUI WebSocket/API client
 ├── check_comfy.py          # Connection diagnostics
