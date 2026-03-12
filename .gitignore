@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Generated outputs
+outputs/
+assets/characters/
+assets/scenes/
+assets/reference/
+assets/controlnets/
+poses/
+cache/
+
+# Logs
+logs/
+*.log
+logs.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# ComfyUI models (too large for git)
+*.safetensors
+*.ckpt
+*.pth
+*.pt
