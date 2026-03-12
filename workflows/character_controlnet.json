@@ -1,0 +1,163 @@
+{
+  "1": {
+    "inputs": {
+      "ckpt_name": "sdxl.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple"
+  },
+  "2": {
+    "inputs": {
+      "text": "{PROMPT}",
+      "clip": [
+        "1",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode"
+  },
+  "3": {
+    "inputs": {
+      "text": "blurry, deformed, ugly",
+      "clip": [
+        "1",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode"
+  },
+  "4": {
+    "inputs": {
+      "width": 1024,
+      "height": 1024,
+      "batch_size": 1
+    },
+    "class_type": "EmptyLatentImage"
+  },
+  "5": {
+    "inputs": {
+      "model": [
+        "1",
+        0
+      ],
+      "clip": [
+        "1",
+        1
+      ],
+      "lora_name": "{LORA1}",
+      "strength_model": 0.7,
+      "strength_clip": 0.7
+    },
+    "class_type": "LoraLoader"
+  },
+  "6": {
+    "inputs": {
+      "model": [
+        "5",
+        0
+      ],
+      "clip": [
+        "5",
+        1
+      ],
+      "lora_name": "{LORA2}",
+      "strength_model": 0.4,
+      "strength_clip": 0.4
+    },
+    "class_type": "LoraLoader"
+  },
+  "7": {
+    "inputs": {
+      "image": "{REFERENCE_IMAGE}"
+    },
+    "class_type": "LoadImage"
+  },
+  "8": {
+    "inputs": {
+      "ipadapter": [
+        "7",
+        0
+      ],
+      "model": [
+        "6",
+        0
+      ],
+      "clip": [
+        "6",
+        1
+      ],
+      "weight": 0.8,
+      "weight_type": "style_transfer"
+    },
+    "class_type": "IPAdapterApply"
+  },
+  "9": {
+    "inputs": {
+      "image": "{POSE_IMAGE}",
+      "strength": 0.9
+    },
+    "class_type": "ControlNetLoader"
+  },
+  "10": {
+    "inputs": {
+      "conditioning": [
+        "2",
+        0
+      ],
+      "control_net": [
+        "9",
+        0
+      ],
+      "strength": 1.0
+    },
+    "class_type": "ControlNetApply"
+  },
+  "11": {
+    "inputs": {
+      "model": [
+        "8",
+        0
+      ],
+      "positive": [
+        "10",
+        0
+      ],
+      "negative": [
+        "3",
+        0
+      ],
+      "latent_image": [
+        "4",
+        0
+      ],
+      "seed": "{SEED}",
+      "steps": 35,
+      "cfg": 7.0,
+      "sampler_name": "dpmpp_2m",
+      "scheduler": "karras"
+    },
+    "class_type": "KSampler"
+  },
+  "12": {
+    "inputs": {
+      "samples": [
+        "11",
+        0
+      ],
+      "vae": [
+        "1",
+        2
+      ]
+    },
+    "class_type": "VAEDecode"
+  },
+  "13": {
+    "inputs": {
+      "images": [
+        "12",
+        0
+      ],
+      "filename_prefix": "{ASSET_ID}"
+    },
+    "class_type": "SaveImage"
+  }
+}
